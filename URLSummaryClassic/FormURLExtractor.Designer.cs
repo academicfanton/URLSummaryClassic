@@ -45,6 +45,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.Text_Width = new System.Windows.Forms.Label();
             this.Text_Height = new System.Windows.Forms.Label();
+            this.buttonShow = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.Image_Sample)).BeginInit();
             this.SuspendLayout();
             // 
@@ -54,7 +55,7 @@
             this.TextBox_URLToExtract.Name = "TextBox_URLToExtract";
             this.TextBox_URLToExtract.Size = new System.Drawing.Size(709, 26);
             this.TextBox_URLToExtract.TabIndex = 0;
-            this.TextBox_URLToExtract.Text = "https://gizmodo.com/the-house-that-spied-on-me-1822429852";
+            this.TextBox_URLToExtract.Text = "https://github.com/academicfanton/URLSummaryClassic";
             this.TextBox_URLToExtract.TextChanged += new System.EventHandler(this.TextBox_URLToExtract_TextChanged);
             // 
             // label1
@@ -188,11 +189,22 @@
             this.Text_Height.TabIndex = 16;
             this.Text_Height.Text = "0";
             // 
+            // buttonShow
+            // 
+            this.buttonShow.Location = new System.Drawing.Point(870, 103);
+            this.buttonShow.Name = "buttonShow";
+            this.buttonShow.Size = new System.Drawing.Size(91, 35);
+            this.buttonShow.TabIndex = 17;
+            this.buttonShow.Text = "&Show";
+            this.buttonShow.UseVisualStyleBackColor = true;
+            this.buttonShow.Click += new System.EventHandler(this.buttonShow_Click);
+            // 
             // FormURLExtractor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1002, 880);
+            this.Controls.Add(this.buttonShow);
             this.Controls.Add(this.Text_Height);
             this.Controls.Add(this.Text_Width);
             this.Controls.Add(this.label7);
@@ -236,6 +248,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label Text_Width;
         private System.Windows.Forms.Label Text_Height;
+        private System.Windows.Forms.Button buttonShow;
     }
 }
 

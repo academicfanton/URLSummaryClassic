@@ -30,13 +30,14 @@ namespace URLSummaryClassic
     public partial class FormURLExtractor : Form
     {
         HtmlAgilityPack.HtmlDocument htmlDoc;
+        OGAttributes DetailsDialog;
 
         public FormURLExtractor()
         {
             InitializeComponent();
             this.Button_OK.Enabled = true;
             this.Text_Info.Text = "Press OK to retrieve summary";
-
+            DetailsDialog = new OGAttributes();
         }
 
 
@@ -84,6 +85,17 @@ namespace URLSummaryClassic
             }
             return (bmp);
         }
+        private static string StrLeft(string sParam, int iLength)
+        {
+            string sResult = "";
+            if (sParam.Length > 0)
+            {
+                if (iLength > sParam.Length)
+                    iLength = sParam.Length;
+                sResult = sParam.Substring(0, iLength);
+            }
+            return sResult;
+        }
         private async Task DownloadPage(string sPage)
         {
             try
@@ -108,17 +120,22 @@ namespace URLSummaryClassic
                     {
                         string sName = tag.GetAttributeValue("property", "");
                         string sContent = tag.GetAttributeValue("content", "");
-                        if (sName == "og:title")
+                        if (StrLeft(sName,3)=="og:")
                         {
-                            TextBox_Title.Text = sContent;
-                        }
-                        else if (sName == "og:description")
-                        {
-                            TextBox_Summary.Text = sContent;
-                        }
-                        else if (sName == "og:image")
-                        {
-                            TextBox_URLImage.Text = sContent;
+                            string sTag = sName.Substring(3, sName.Length - 3);
+                            DetailsDialog.AddElement(sTag, sContent);
+                            if (sName == "og:title")
+                            {
+                                TextBox_Title.Text = sContent;
+                            }
+                            else if (sName == "og:description")
+                            {
+                                TextBox_Summary.Text = sContent;
+                            }
+                            else if (sName == "og:image")
+                            {
+                                TextBox_URLImage.Text = sContent;
+                            }
                         }
                     }
                 }
@@ -157,8 +174,13 @@ namespace URLSummaryClassic
             Text_Width.Text = "";
             Text_Height.Text = "";
             Image_Sample.Image= null;
+            DetailsDialog.ClearLists();
             await DownloadPage(this.TextBox_URLToExtract.Text);
         }
 
+        private void buttonShow_Click(object sender, EventArgs e)
+        {
+            DetailsDialog.ShowDialog();
+        }
     }
 }
